@@ -10,6 +10,13 @@ export const GlobalProvider = ({children}) => {
     const[user,setUser]=useState(null);
 
     const login =(email,password)=>{
+        const loggerUser ={
+            id:"123",
+            email,
+        };
+    
+        localStorage.setItem("user", JSON.stringify(loggerUser));
+
         if(password ==="123"){
             navigate("/");
         }
