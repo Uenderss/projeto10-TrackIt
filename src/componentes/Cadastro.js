@@ -4,11 +4,11 @@ import styled from "styled-components";
 import "@fontsource/lexend-deca";
 import { useState, useContext } from "react";
 import {Link} from 'react-router-dom';
-import { GlobalContext } from "./Context";
+// import { GlobalContext } from "./Context";
 
-const LoginPage = () => {
-  const { login } = useContext(GlobalContext);
-  
+const Cadastro = () => {
+//   const { login } = useContext(GlobalContext);
+  const [nome,setNome]=useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [habilitar, setHabilitar] = useState(false);
@@ -44,7 +44,7 @@ const LoginPage = () => {
         <input
           placeholder="email"
           name="email"
-          id="email"
+          id="emailCadastro"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -52,21 +52,40 @@ const LoginPage = () => {
         />
         <input
           placeholder="senha"
-          type="password"
-          id="password"
-          name="password"
+          name="passwordCadastro"
+          id="passwordCadastro"
+          type="text"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           disabled={habilitar}
         />
+        <input
+          placeholder="nome"
+          name="nome"
+          id="nome"
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          disabled={habilitar}
+        />
+        <input
+          placeholder="foto"
+          name="email"
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={habilitar}
+        />
+       
         <button type="submit">Entrar</button>
-        <span><Link to='/cadastro'>Não tem uma conta? Cadastre-se!</Link></span>
+        <span><Link to='/'>Ja tem uma conta? Faça Login</Link></span>
       </Form>
     </Tela1>
   );
 };
 
-export default LoginPage;
+export default Cadastro;
 
 const Imagem = styled.div`
   display: flex;

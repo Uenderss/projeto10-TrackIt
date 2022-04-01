@@ -38,7 +38,7 @@ export const GlobalProvider = ({children}) => {
         api.defaults.headers.Authorization =`Bearer ${token}`;
        
         setUser(loggerUser);
-        navigate("/");
+        navigate("/habitos");
         
     };
 

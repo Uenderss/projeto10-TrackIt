@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./LoginPage";
-import HomePage from "./HomePage";
+import Cadastro from "./Cadastro";
 import { GlobalProvider,GlobalContext } from "./Context";
 import { useContext } from "react/cjs/react.production.min";
 
@@ -14,7 +14,7 @@ const AppRoutes = () => {
     }
     if(!autenticador) {
         alert("Email ou Senha incorreto(s) tente novamente");
-        return <Navigate to="/login"/>
+        return <Navigate to="/cadastro"/>
     }
     return children;
   }
@@ -23,8 +23,8 @@ const AppRoutes = () => {
       <GlobalProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          {/* <Route path="/" element={<HomePage />} /> */}
-          <Route path="/cadastro" element={<Private>Cadastro</Private>}/>
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/habitos" element={<Private>Habitos</Private>}/>
         </Routes>
       </GlobalProvider>
     </BrowserRouter>

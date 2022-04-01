@@ -27,7 +27,7 @@ const HomePage = () => {
   return (
     <>
       <h1>HomePage</h1>
-      <p>{String(autenticador)}</p>
+      
       <button onClick={handleLogout}>Sair</button>
       <ul>
           {
