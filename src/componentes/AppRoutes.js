@@ -7,7 +7,11 @@ import { useContext } from "react/cjs/react.production.min";
 
 const AppRoutes = () => {
   const Private = ({children})=>{
-    const{autenticador} = useContext(GlobalContext);
+    const{autenticador,carregando} = useContext(GlobalContext);
+
+    if(carregando){
+        return <div >carregando...</div>
+    }
     if(!autenticador) {
         alert("Email ou Senha incorreto(s) tente novamente");
         return <Navigate to="/login"/>
@@ -18,8 +22,8 @@ const AppRoutes = () => {
     <BrowserRouter>
       <GlobalProvider>
         <Routes>
-          <Route path="/Login" element={<LoginPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LoginPage />} />
+          {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/cadastro" element={<Private>Cadastro</Private>}/>
         </Routes>
       </GlobalProvider>
