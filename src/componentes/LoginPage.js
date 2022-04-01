@@ -3,32 +3,34 @@ import logo from "../assets/imagem/logo.png";
 import styled from "styled-components";
 import "@fontsource/lexend-deca";
 import { useState, useContext } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { GlobalContext } from "./Context";
+import { css } from "@emotion/react";
+import { BeatLoader } from "react-spinners";
 
 const LoginPage = () => {
   const { login } = useContext(GlobalContext);
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [habilitar, setHabilitar] = useState(false);
+  const [loading, setLoading] = useState("Entrar");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-
+    setLoading(<BeatLoader css={override} color={"#ffffff"}/>);
+    setHabilitar(!habilitar);
     // login(email, password);
 
     login(email, password)
       .then(function (response) {
-        setHabilitar(!habilitar);
-        return;
+        
       })
       .catch(function (error) {
         alert(`    Senha ou usuario inválido!
     Por favor tente novamente ou realize seu cadastro.
             `);
-        
+        setLoading("Entrar");
         setPassword("");
         setEmail("");
         console.log(error);
@@ -59,14 +61,33 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           disabled={habilitar}
         />
-        <button type="submit">Entrar</button>
-        <span><Link to='/cadastro'>Não tem uma conta? Cadastre-se!</Link></span>
+        <button type="submit">{loading}
+        
+        </button>
+      
+        <span>
+          <Link
+            to="/cadastro"
+            onClick={() => {
+              setLoading(!loading);
+            }}
+          >
+            Não tem uma conta? Cadastre-se!
+          </Link>
+        </span>
       </Form>
+    
     </Tela1>
+    
   );
 };
 
 export default LoginPage;
+
+const override =css`
+
+`;
+
 
 const Imagem = styled.div`
   display: flex;
@@ -89,7 +110,7 @@ const Form = styled.form`
   input {
     width: 303px;
     height: 45px;
-    background: #ffffff;
+    background-color: ${props=>props.value!== undefined ?"#D4D4D4":"#FFFFFF"};
     border: 1px solid #d5d5d5;
     box-sizing: border-box;
     border-radius: 5px;
@@ -101,6 +122,7 @@ const Form = styled.form`
   button {
     width: 303px;
     height: 45px;
+    opacity: ${props=>props.value!== undefined ? 0.7 : 1};
     background: #52b6ff;
     border-radius: 4.63636px;
     border: 0;
@@ -108,6 +130,10 @@ const Form = styled.form`
     color: white;
     font-size: 20.976px;
     line-height: 26px;
+  }
+  button span span{
+    background-color: white;
+    width: 20px;
   }
   span {
     width: 232px;

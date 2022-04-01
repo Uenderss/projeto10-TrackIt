@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./LoginPage";
 import Cadastro from "./Cadastro";
-import { GlobalProvider,GlobalContext } from "./Context";
-import { useContext } from "react/cjs/react.production.min";
+import Hoje from './Hoje';
+import { GlobalProvider, GlobalContext } from "./Context";
+import { useContext } from "react";
 
 const AppRoutes = () => {
   const Private = ({children})=>{
@@ -24,7 +25,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/habitos" element={<Private>Habitos</Private>}/>
+          <Route path="/hoje" element={<Private>Hoje</Private>}/>
         </Routes>
       </GlobalProvider>
     </BrowserRouter>

@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import {api, createSession} from './Conexao';
 
-
 export const GlobalContext = createContext();
+
+
 
 export const GlobalProvider = ({children}) => {
     const navigate = useNavigate();
@@ -28,8 +29,6 @@ export const GlobalProvider = ({children}) => {
         
         const response = await createSession(email,password);
 
-        console.log("login auth chegou aqui",response);
-
         const loggerUser =response.data.user;
         const token = response.data.token;
 
@@ -38,10 +37,10 @@ export const GlobalProvider = ({children}) => {
         api.defaults.headers.Authorization =`Bearer ${token}`;
        
         setUser(loggerUser);
-        navigate("/habitos");
+        navigate("/hoje");
         
     };
-
+   
     const logout =()=>{
         console.log("logout");
         localStorage.removeItem("user");
@@ -52,9 +51,7 @@ export const GlobalProvider = ({children}) => {
     };
 
   return (
-    <GlobalContext.Provider
-      value={{ authenticated: !!user, user, carregando, login, logout }}
-    >
+    <GlobalContext.Provider value={{ authenticated: !!user, user, carregando, login, logout }}>
         {children}
     </GlobalContext.Provider>
   );

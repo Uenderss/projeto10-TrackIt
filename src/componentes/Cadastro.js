@@ -2,41 +2,40 @@ import React from "react";
 import logo from "../assets/imagem/logo.png";
 import styled from "styled-components";
 import "@fontsource/lexend-deca";
-import { useState, useContext } from "react";
-import {Link} from 'react-router-dom';
-// import { GlobalContext } from "./Context";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createCadastro } from "./Conexao";
+import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
-//   const { login } = useContext(GlobalContext);
-  const [nome,setNome]=useState("");
+  const navigate = useNavigate();
+
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [imagem, setImagem] = useState("");
   const [password, setPassword] = useState("");
   const [habilitar, setHabilitar] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
-    // login(email, password);
+    const cadastro = async (email, password, nome, imagem) => {
+      const response = await createCadastro(email, password, nome, imagem);
+    };
 
-    login(email, password)
-      .then(function (response) {
-        setHabilitar(!habilitar);
-        return;
+    cadastro(email, password, nome, imagem ).then(function (response) {
+        navigate("/");
+        console.log(response);
       })
       .catch(function (error) {
-        alert(`    Senha ou usuario inválido!
-    Por favor tente novamente ou realize seu cadastro.
-            `);
-        
-        setPassword("");
-        setEmail("");
         console.log(error);
       });
+
+      
   };
 
   return (
-    <Tela1>
+    <Tela2>
       <Imagem>
         <img src={logo} alt="logo" />
       </Imagem>
@@ -44,7 +43,7 @@ const Cadastro = () => {
         <input
           placeholder="email"
           name="email"
-          id="emailCadastro"
+          id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -52,11 +51,11 @@ const Cadastro = () => {
         />
         <input
           placeholder="senha"
-          name="passwordCadastro"
-          id="passwordCadastro"
+          name="password"
+          id="password"
           type="text"
           value={password}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           disabled={habilitar}
         />
         <input
@@ -70,18 +69,20 @@ const Cadastro = () => {
         />
         <input
           placeholder="foto"
-          name="email"
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="imagem"
+          id="imagem"
+          type="imagem"
+          value={imagem}
+          onChange={(e) => setImagem(e.target.value)}
           disabled={habilitar}
         />
-       
-        <button type="submit">Entrar</button>
-        <span><Link to='/'>Ja tem uma conta? Faça Login</Link></span>
+
+        <button type="submit">Cadastrar</button>
+        <span>
+          <Link to="/">Ja tem uma conta? Faça Login</Link>
+        </span>
       </Form>
-    </Tela1>
+    </Tela2>
   );
 };
 
@@ -141,7 +142,7 @@ const Form = styled.form`
   }
 `;
 
-const Tela1 = styled.section`
+const Tela2 = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
