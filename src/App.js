@@ -1,11 +1,23 @@
 import React from "react";
 import "@fontsource/lexend-deca";
-// import styled from 'styled-components';
-import AppRoutes from "./componentes/AppRoutes";
-// import HomePage from "./componentes/HomePage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login/Login";
+import Cadastro from "./Cadastro";
+import GlobalCss from "./Global.css";
+import { UserStorage } from "./UserContext";
 
 const App = () => {
-  return <AppRoutes />;
+  return(<>
+    <BrowserRouter>
+    <GlobalCss/>
+    <UserStorage>
+      <Routes>
+        <Route path="/" element={<Login/>}/>
+        <Route path="/cadastro" element={<Cadastro/>}/>
+      </Routes>
+      </UserStorage>
+    </BrowserRouter>
+  </>) 
 };
 
 export default App;

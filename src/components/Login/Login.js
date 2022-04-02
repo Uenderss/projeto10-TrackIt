@@ -1,40 +1,26 @@
 import React from "react";
-import logo from "../assets/imagem/logo.png";
-import styled from "styled-components";
-import "@fontsource/lexend-deca";
+import logo from "../../assets/imagem/logo.png";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { GlobalContext } from "./Context";
 import { css } from "@emotion/react";
+import styled from "styled-components";
+import "@fontsource/lexend-deca";
+import { UserContext } from "./UserContext";
 import { BeatLoader } from "react-spinners";
 
-const LoginPage = () => {
-  const { login } = useContext(GlobalContext);
+const Login = () => {
+  const username = useForm();
+  const password = useForm();
+  
+  const { userLogin, error, loading } = useContext(UserContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [habilitar, setHabilitar] = useState(false);
-  const [loading, setLoading] = useState("Entrar");
-
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(<BeatLoader css={override} color={"#ffffff"}/>);
-    setHabilitar(!habilitar);
-    // login(email, password);
+     
+    if(username.validate() && password.validate()){
+      userLogin(username.value,password.vallue);
+    }
 
-    login(email, password)
-      .then(function (response) {
-        
-      })
-      .catch(function (error) {
-        alert(`    Senha ou usuario inválido!
-    Por favor tente novamente ou realize seu cadastro.
-            `);
-        setLoading("Entrar");
-        setPassword("");
-        setEmail("");
-        console.log(error);
-      });
   };
 
   return (
@@ -45,35 +31,18 @@ const LoginPage = () => {
       <Form onSubmit={handleSubmit}>
         <input
           placeholder="email"
-          name="email"
-          id="email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={habilitar}
+          {...username}
         />
         <input
           placeholder="senha"
           type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={habilitar}
+          {...password}
         />
-        <button type="submit">{loading}
-        
-        </button>
-      
+        {loading ?( <button><BeatLoader color={"#ffffff"}/></button>):(<button>Entrar</button>) }
+
         <span>
-          <Link
-            to="/cadastro"
-            onClick={() => {
-              setLoading(!loading);
-            }}
-          >
-            Não tem uma conta? Cadastre-se!
-          </Link>
+          <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
         </span>
       </Form>
     
@@ -82,12 +51,7 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
-
-const override =css`
-
-`;
-
+export default Login;
 
 const Imagem = styled.div`
   display: flex;
