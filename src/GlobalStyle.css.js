@@ -1,7 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-export default createGlobalStyle`
-    html, body, div, span, applet, object, iframe,
+const GlobalStyle = createGlobalStyle`
+* {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -26,9 +30,14 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
-	line-height: 1;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 14px;
+  background-color: #F7F7F7;
+  /* line-height: 1; */
 }
+
 ol, ul {
 	list-style: none;
 }
@@ -45,3 +54,4 @@ table {
 	border-spacing: 0;
 }
 `;
+export default GlobalStyle;
